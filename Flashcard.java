@@ -1,11 +1,10 @@
-import java.util.ArrayList;
-import java.util.Scanner;
-
+ import java.util.ArrayList;
+ import java.util.Scanner;
 class Flashcard{
     private String question;
     private String answer;
 
-    private Flashcard(String question, String answer)
+    public Flashcard(String question, String answer)
     {
         this.question = question;
         this.answer = answer;
@@ -19,5 +18,4 @@ class Flashcard{
         return answer;
     }
 }
-
 
