@@ -66,6 +66,9 @@ public class FlashcardApp {
         }
     }
 
+    @SuppressWarnings("unchecked") // Suppress unchecked cast warning
+
+
     public void loadFlashcards(){
          try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("flashcards.ser"))) {
             flashcards = (ArrayList<Flashcard>) in.readObject();
