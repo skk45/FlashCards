@@ -37,6 +37,7 @@ function showTestPage() {
 }
 
 
+
 // Show the "Delete Flashcard" page
 function showDeletePage() {
     if (flashcards.length === 0) {
@@ -123,7 +124,9 @@ function submitTest() {
         <button type="button" onclick="backToMenu()">Back to Menu</button>
     `;
     
-    document.getElementById("testQuestions").innerHTML = resultHTML;
+    // Clear previous content and add results
+    const testQuestionsContainer = document.getElementById("testQuestions");
+    testQuestionsContainer.innerHTML = resultHTML;
 }
 // Exit the app
 function exitApp() {
