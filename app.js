@@ -102,30 +102,22 @@ function testAnswers() {
     backToMenu();
 }
 function submitTest() {
-    let correctCount = 0;
     let resultHTML = '<h2>Results</h2>';
     
     flashcards.forEach((flashcard, index) => {
         const userAnswer = document.getElementById(`answer${index}`).value.trim();
         const correctAnswer = flashcard.answer;
 
-        // Check if the user's answer is correct
-        if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
-            correctCount++;
-            resultHTML += `
+        // Display user's answer and the correct answer
+        resultHTML += `
+            <div>
                 <p><strong>Question:</strong> ${flashcard.question}</p>
-                <p><strong>Your Answer:</strong> ${userAnswer} <span style="color: green;">(Correct)</span></p>
-            `;
-        } else {
-            resultHTML += `
-                <p><strong>Question:</strong> ${flashcard.question}</p>
-                <p><strong>Your Answer:</strong> ${userAnswer} <span style="color: red;">(Incorrect)</span></p>
+                <p><strong>Your Answer:</strong> ${userAnswer}</p>
                 <p><strong>Correct Answer:</strong> ${correctAnswer}</p>
-            `;
-        }
+            </div>
+        `;
     });
 
-    resultHTML += `<p>You got ${correctCount} out of ${flashcards.length} correct!</p>`;
     document.getElementById("testQuestions").innerHTML = resultHTML;
 }
 // Exit the app
