@@ -23,6 +23,7 @@ function showTestPage() {
             <div>
                 <p><strong>Question:</strong> ${flashcard.question}</p>
                 <input type="text" id="answer${index}" placeholder="Your answer">
+                <p><strong>Correct Answer:</strong> <span id="correctAnswer${index}" style="display: none;">${flashcard.answer}</span></p>
             </div>
         `;
     });
@@ -81,10 +82,16 @@ function testAnswers() {
     let correctCount = 0;
     flashcards.forEach((flashcard, index) => {
         const userAnswer = document.getElementById(`answer${index}`).value.trim();
-        if (userAnswer.toLowerCase() === flashcard.answer.toLowerCase()) {
+        const correctAnswer = flashcard.answer;
+
+        // Show the correct answer after the user enters theirs
+        document.getElementById(`correctAnswer${index}`).style.display = "inline";
+
+        if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
             correctCount++;
         }
     });
+
     alert(`You got ${correctCount} out of ${flashcards.length} correct!`);
     backToMenu();
 }
