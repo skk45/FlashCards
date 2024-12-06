@@ -18,12 +18,12 @@ function showTestPage() {
     document.getElementById("introPage").style.display = "none";
     document.getElementById("testPage").style.display = "block";
     
-    // Prepare the questions for display
+    // Prepare the questions for display with numbering
     let testQuestionsHTML = '';
     flashcards.forEach((flashcard, index) => {
         testQuestionsHTML += `
             <div>
-                <p><strong>Question:</strong> ${flashcard.question}</p>
+                <p><strong>Question ${index + 1}:</strong> ${flashcard.question}</p>
                 <input type="text" id="answer${index}" placeholder="Your answer">
             </div>
         `;
@@ -31,6 +31,7 @@ function showTestPage() {
     
     testQuestionsHTML += `
         <button type="button" onclick="submitTest()">Submit Answers</button>
+        <button type="button" onclick="backToMenu()">Back to Menu</button>
     `;
     
     document.getElementById("testQuestions").innerHTML = testQuestionsHTML;
@@ -108,10 +109,10 @@ function submitTest() {
         const userAnswer = document.getElementById(`answer${index}`).value.trim();
         const correctAnswer = flashcard.answer;
 
-        // Display user's answer and the correct answer
+        // Display the question number, user's answer, and the correct answer
         resultHTML += `
             <div>
-                <p><strong>Question:</strong> ${flashcard.question}</p>
+                <p><strong>Question ${index + 1}:</strong> ${flashcard.question}</p>
                 <p><strong>Your Answer:</strong> ${userAnswer}</p>
                 <p><strong>Correct Answer:</strong> ${correctAnswer}</p>
             </div>

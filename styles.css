@@ -145,7 +145,16 @@ li p {
     opacity: 0;
     animation: fadeIn 0.5s forwards;
 }
+#testPage button {
+    margin-top: 15px; /* Add space between buttons */
+    padding: 10px 20px;
+    width: 100%; /* Full width for buttons */
+    font-size: 16px;
+}
 
+#testPage button:last-child {
+    margin-top: 10px; /* Smaller gap for the Back to Menu button */
+}
 @keyframes fadeIn {
     to {
         opacity: 1;
