@@ -5,6 +5,8 @@ let flashcards = [];
 function showCreatePage() {
     document.getElementById("introPage").style.display = "none";
     document.getElementById("createPage").style.display = "block";
+    document.getElementById("testPage").style.display = "none";
+    document.getElementById("deletePage").style.display = "none";
 }
 
 // Show the "Test Knowledge" page
@@ -16,7 +18,10 @@ function showTestPage() {
     }
 
     document.getElementById("introPage").style.display = "none";
+    document.getElementById("createPage").style.display = "none";
     document.getElementById("testPage").style.display = "block";
+    document.getElementById("deletePage").style.display = "none";
+
     let testQuestionsHTML = '';
     flashcards.forEach((flashcard, index) => {
         testQuestionsHTML += `
@@ -38,7 +43,10 @@ function showDeletePage() {
     }
 
     document.getElementById("introPage").style.display = "none";
+    document.getElementById("createPage").style.display = "none";
+    document.getElementById("testPage").style.display = "none";
     document.getElementById("deletePage").style.display = "block";
+
     let flashcardListHTML = '';
     flashcards.forEach((flashcard, index) => {
         flashcardListHTML += `
