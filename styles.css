@@ -9,11 +9,16 @@ body {
     margin: 0;
 }
 
+#introPage {
+    width: 500px; /* Match the container width */
+    padding: 30px;
+}
+
 /* Container Styling */
 .container {
-    width: 400px;
+    width: 500px;
+    padding: 30px;
     background-color: #ffffff;
-    padding: 20px;
     text-align: center;
     border-radius: 10px;
     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
