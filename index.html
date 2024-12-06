@@ -7,32 +7,41 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div id="introPage" class="container">
-        <h1>Flashcard App</h1>
-        <button onclick="showCreatePage()">Create Flashcards</button>
-        <button onclick="showTestPage()">Test Your Knowledge</button>
-        <button onclick="showDeletePage()">Delete Flashcards</button>
+    <div class="container" id="introPage">
+        <h1>Welcome to the Flashcard App!</h1>
+        <p>Get ready to create, test, and delete flashcards to boost your learning.</p>
+
+        <div class="button-container">
+            <button onclick="showCreatePage()">Create Flashcard</button>
+            <button onclick="showTestPage()">Test Knowledge</button>
+            <button onclick="showDeletePage()">Delete Flashcard</button>
+            <button onclick="exitApp()">Exit</button>
+        </div>
     </div>
 
-    <div id="createPage" class="container">
-        <h2>Create Flashcard</h2>
-        <form id="createForm" onsubmit="event.preventDefault(); saveFlashcard();">
-            <input type="text" id="question" placeholder="Enter question" required><br>
-            <input type="text" id="answer" placeholder="Enter answer" required><br>
-            <button type="submit">Save Flashcard</button>
+    <!-- Create Flashcard Page -->
+    <div class="container" id="createPage" style="display: none;">
+        <h2>Create a Flashcard</h2>
+        <form id="createForm">
+            <input type="text" id="question" placeholder="Enter question" required>
+            <input type="text" id="answer" placeholder="Enter answer" required>
+            <button type="button" onclick="saveFlashcard()">Save Flashcard</button>
+            <button type="button" onclick="backToMenu()">Back to Menu</button>
         </form>
-        <button onclick="backToMenu()">Back to Menu</button>
     </div>
 
-    <div id="testPage" class="container">
+    <!-- Test Flashcards Page -->
+    <div class="container" id="testPage" style="display: none;">
         <h2>Test Your Knowledge</h2>
+        <p>Answer the questions to test your knowledge!</p>
         <div id="testQuestions"></div>
-        <button onclick="testAnswers()">Submit Answers</button>
         <button onclick="backToMenu()">Back to Menu</button>
     </div>
 
-    <div id="deletePage" class="container">
-        <h2>Delete Flashcards</h2>
+    <!-- Delete Flashcard Page -->
+    <div class="container" id="deletePage" style="display: none;">
+        <h2>Delete a Flashcard</h2>
+        <p>Select a flashcard to delete:</p>
         <ul id="flashcardList"></ul>
         <button onclick="backToMenu()">Back to Menu</button>
     </div>
