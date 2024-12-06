@@ -1,103 +1,116 @@
-// Initialize the flashcards array
-let flashcards = [];
+// Store flashcards in localStorage to persist data
+let flashcards = JSON.parse(localStorage.getItem('flashcards')) || [];
 
-// Show the "Create Flashcard" page
+// Show/Create Flashcard Page
 function showCreatePage() {
-    document.getElementById("introPage").style.display = "none";
-    document.getElementById("createPage").style.display = "block";
+    resetAllPages();
+    document.getElementById("createPage").classList.add("active");
 }
 
-// Show the "Test Knowledge" page
+// Show/Test Knowledge Page
 function showTestPage() {
-    if (flashcards.length === 0) {
-        alert("No flashcards available. Please create some first.");
-        backToMenu();
-        return;
-    }
-
-    document.getElementById("introPage").style.display = "none";
-    document.getElementById("testPage").style.display = "block";
-    let testQuestionsHTML = '';
-    flashcards.forEach((flashcard, index) => {
-        testQuestionsHTML += `
-            <div>
-                <p><strong>Question:</strong> ${flashcard.question}</p>
-                <input type="text" id="answer${index}" placeholder="Your answer">
-            </div>
-        `;
-    });
-    document.getElementById("testQuestions").innerHTML = testQuestionsHTML;
+    resetAllPages();
+    document.getElementById("testPage").classList.add("active");
+    renderTestQuestions();
 }
 
-// Show the "Delete Flashcard" page
+// Show/Delete Flashcard Page
 function showDeletePage() {
-    if (flashcards.length === 0) {
-        alert("No flashcards to delete.");
-        backToMenu();
-        return;
-    }
-
-    document.getElementById("introPage").style.display = "none";
-    document.getElementById("deletePage").style.display = "block";
-    let flashcardListHTML = '';
-    flashcards.forEach((flashcard, index) => {
-        flashcardListHTML += `
-            <li onclick="deleteFlashcard(${index})">
-                <p><strong>Question:</strong> ${flashcard.question}</p>
-                <p><strong>Answer:</strong> ${flashcard.answer}</p>
-            </li>
-        `;
-    });
-    document.getElementById("flashcardList").innerHTML = flashcardListHTML;
+    resetAllPages();
+    document.getElementById("deletePage").classList.add("active");
+    renderFlashcardList();
 }
 
-// Save the flashcard
+// Reset all pages (hide them)
+function resetAllPages() {
+    const pages = document.querySelectorAll('.container');
+    pages.forEach(page => page.classList.remove('active'));
+}
+
+// Save Flashcard
 function saveFlashcard() {
     const question = document.getElementById("question").value;
     const answer = document.getElementById("answer").value;
 
     if (question && answer) {
-        flashcards.push({ question, answer });
-        console.log("Flashcard Created!");
-        alert("Flashcard saved!");
+        const newFlashcard = { question, answer };
+        flashcards.push(newFlashcard);
+        localStorage.setItem('flashcards', JSON.stringify(flashcards));
 
-        // Reset the form
-        document.getElementById("createForm").reset();
-        backToMenu();
+        alert("Flashcard saved successfully!");
+        document.getElementById("createForm").reset(); // Reset the form fields
+        backToMenu(); // Go back to the menu
     } else {
-        alert("Please enter both a question and an answer.");
+        alert("Please fill out both fields.");
     }
+}
+
+// Render flashcards for testing
+function renderTestQuestions() {
+    const testQuestionsDiv = document.getElementById("testQuestions");
+    testQuestionsDiv.innerHTML = ""; // Clear previous content
+
+    flashcards.forEach((flashcard, index) => {
+        const questionElement = document.createElement('div');
+        questionElement.classList.add('flashcard-question');
+        questionElement.innerHTML = `
+            <p><strong>Q${index + 1}:</strong> ${flashcard.question}</p>
+            <input type="text" id="answer${index}" placeholder="Your answer" class="input-field">
+        `;
+        testQuestionsDiv.appendChild(questionElement);
+    });
+}
+
+// Submit answers and show results
+function testAnswers() {
+    let correctCount = 0;
+
+    flashcards.forEach((flashcard, index) => {
+        const userAnswer = document.getElementById(`answer${index}`).value.trim().toLowerCase();
+        if (userAnswer === flashcard.answer.toLowerCase()) {
+            correctCount++;
+        }
+    });
+
+    alert(`You answered ${correctCount} out of ${flashcards.length} correctly!`);
+    backToMenu();
+}
+
+// Render flashcards for deletion
+function renderFlashcardList() {
+    const flashcardList = document.getElementById("flashcardList");
+    flashcardList.innerHTML = ""; // Clear previous list
+
+    flashcards.forEach((flashcard, index) => {
+        const listItem = document.createElement('li');
+        listItem.innerHTML = `
+            <p><strong>Q${index + 1}:</strong> ${flashcard.question}</p>
+            <button class="btn btn-danger" onclick="deleteFlashcard(${index})">Delete</button>
+        `;
+        flashcardList.appendChild(listItem);
+    });
 }
 
 // Delete a flashcard
 function deleteFlashcard(index) {
     flashcards.splice(index, 1);
-    alert("Flashcard deleted!");
-    showDeletePage();  // Refresh the delete page after deletion
+    localStorage.setItem('flashcards', JSON.stringify(flashcards));
+    renderFlashcardList(); // Re-render the list after deletion
 }
 
-// Test the flashcards
-function testAnswers() {
-    let correctCount = 0;
-    flashcards.forEach((flashcard, index) => {
-        const userAnswer = document.getElementById(`answer${index}`).value.trim();
-        if (userAnswer.toLowerCase() === flashcard.answer.toLowerCase()) {
-            correctCount++;
-        }
-    });
-    alert(`You got ${correctCount} out of ${flashcards.length} correct!`);
-    backToMenu();
+// Go back to the menu page
+function backToMenu() {
+    resetAllPages();
+    document.getElementById("introPage").classList.add("active");
 }
 
 // Exit the app
 function exitApp() {
-    window.close();  // Close the browser window/tab (may not work in all browsers)
+    alert("Thanks for using the Flashcard App!");
+    window.close(); // This will only work in certain browsers or environments
 }
 
-// Go back to the main menu (intro page)
-function backToMenu() {
-    document.getElementById("createPage").style.display = "none";
-    document.getElementById("testPage").style.display = "none";
-    document.getElementById("deletePage").style.display = "none";
-    document.getElementById("introPage").style.display = "block";
-}
+// Initially show the intro page
+document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("introPage").classList.add("active");
+});

@@ -1,29 +1,109 @@
+/* General Styles */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f8ff;
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 .container {
-    width: 400px;
-    background: white;
+    width: 80%;
+    max-width: 600px;
+    margin: 20px;
     padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-button {
-    margin: 10px;
-    padding: 10px 20px;
-    background-color: #007bff;
+h1, h2 {
+    color: #2c3e50;
+}
+
+.intro-text {
+    color: #7f8c8d;
+    margin-bottom: 20px;
+    font-size: 1.2em;
+}
+
+.instruction-text {
+    color: #34495e;
+    margin-bottom: 15px;
+    font-size: 1.1em;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.btn {
+    padding: 12px;
+    background-color: #3498db;
     color: white;
+    font-size: 1em;
     border: none;
+    border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-button:hover {
-    background-color: #0056b3;
+.btn:hover {
+    background-color: #2980b9;
+    transform: scale(1.05);
+}
+
+.btn-danger {
+    background-color: #e74c3c;
+}
+
+.btn-danger:hover {
+    background-color: #c0392b;
+}
+
+.input-field {
+    padding: 10px;
+    width: 80%;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.flashcard-list {
+    list-style: none;
+    padding: 0;
+}
+
+.flashcard-list li {
+    background-color: #ecf0f1;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.flashcard-list li:hover {
+    background-color: #bdc3c7;
+}
+
+@media (max-width: 600px) {
+    .container {
+        width: 95%;
+    }
+
+    .btn {
+        font-size: 0.9em;
+    }
+
+    .input-field {
+        width: 90%;
+    }
 }
