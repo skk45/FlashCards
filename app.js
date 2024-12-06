@@ -31,11 +31,11 @@ function showTestPage() {
     
     testQuestionsHTML += `
         <button type="button" onclick="submitTest()">Submit Answers</button>
-        <button type="button" onclick="backToMenu()">Back to Menu</button>
     `;
     
     document.getElementById("testQuestions").innerHTML = testQuestionsHTML;
 }
+
 
 // Show the "Delete Flashcard" page
 function showDeletePage() {
@@ -119,6 +119,10 @@ function submitTest() {
         `;
     });
 
+    resultHTML += `
+        <button type="button" onclick="backToMenu()">Back to Menu</button>
+    `;
+    
     document.getElementById("testQuestions").innerHTML = resultHTML;
 }
 // Exit the app
