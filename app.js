@@ -3,12 +3,14 @@ let flashcards = JSON.parse(localStorage.getItem('flashcards')) || [];
 
 // Show/Create Flashcard Page
 function showCreatePage() {
+    console.log("Showing create page...");
     resetAllPages();
     document.getElementById("createPage").classList.add("active");
 }
 
 // Show/Test Knowledge Page
 function showTestPage() {
+    console.log("Showing test page...");
     resetAllPages();
     document.getElementById("testPage").classList.add("active");
     renderTestQuestions();
@@ -16,6 +18,7 @@ function showTestPage() {
 
 // Show/Delete Flashcard Page
 function showDeletePage() {
+    console.log("Showing delete page...");
     resetAllPages();
     document.getElementById("deletePage").classList.add("active");
     renderFlashcardList();
@@ -23,12 +26,14 @@ function showDeletePage() {
 
 // Reset all pages (hide them)
 function resetAllPages() {
+    console.log("Resetting pages...");
     const pages = document.querySelectorAll('.container');
     pages.forEach(page => page.classList.remove('active'));
 }
 
 // Save Flashcard
 function saveFlashcard() {
+    console.log("Saving flashcard...");
     const question = document.getElementById("question").value;
     const answer = document.getElementById("answer").value;
 
@@ -63,6 +68,7 @@ function renderTestQuestions() {
 
 // Submit answers and show results
 function testAnswers() {
+    console.log("Testing answers...");
     let correctCount = 0;
 
     flashcards.forEach((flashcard, index) => {
@@ -93,6 +99,7 @@ function renderFlashcardList() {
 
 // Delete a flashcard
 function deleteFlashcard(index) {
+    console.log(`Deleting flashcard ${index}...`);
     flashcards.splice(index, 1);
     localStorage.setItem('flashcards', JSON.stringify(flashcards));
     renderFlashcardList(); // Re-render the list after deletion
@@ -100,6 +107,7 @@ function deleteFlashcard(index) {
 
 // Go back to the menu page
 function backToMenu() {
+    console.log("Going back to menu...");
     resetAllPages();
     document.getElementById("introPage").classList.add("active");
 }
@@ -112,5 +120,6 @@ function exitApp() {
 
 // Initially show the intro page
 document.addEventListener("DOMContentLoaded", () => {
+    console.log("DOM fully loaded...");
     document.getElementById("introPage").classList.add("active");
 });
