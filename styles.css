@@ -65,12 +65,15 @@ button:active {
     background-color: #003366;
 }
 
-/* Button Container */
+    /* Button Container */
 .button-container {
     display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center; /* Center buttons horizontally */
+    gap: 15px; /* Space between buttons */
 }
+
+
 
 /* Form Inputs */
 input[type="text"] {
