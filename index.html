@@ -9,43 +9,13 @@
 <body>
     <div class="container" id="introPage">
         <h1>Welcome to the Flashcard App!</h1>
-        <p>Get ready to create, test, and delete flashcards to boost your learning.</p>
-
+        <p>Create, test, and delete flashcards to enhance your learning.</p>
         <div class="button-container">
             <button onclick="showCreatePage()">Create Flashcard</button>
             <button onclick="showTestPage()">Test Knowledge</button>
             <button onclick="showDeletePage()">Delete Flashcard</button>
-            <button onclick="exitApp()">Exit</button>
         </div>
     </div>
-
-    <!-- Create Flashcard Page -->
-    <div class="container" id="createPage" style="display: none;">
-        <h2>Create a Flashcard</h2>
-        <form id="createForm">
-            <input type="text" id="question" placeholder="Enter question" required>
-            <input type="text" id="answer" placeholder="Enter answer" required>
-            <button type="button" onclick="saveFlashcard()">Save Flashcard</button>
-            <button type="button" onclick="backToMenu()">Back to Menu</button>
-        </form>
-    </div>
-
-    <!-- Test Flashcards Page -->
-    <div class="container" id="testPage" style="display: none;">
-        <h2>Test Your Knowledge</h2>
-        <p>Answer the questions to test your knowledge!</p>
-        <div id="testQuestions"></div>
-        <button onclick="backToMenu()">Back to Menu</button>
-    </div>
-
-    <!-- Delete Flashcard Page -->
-    <div class="container" id="deletePage" style="display: none;">
-        <h2>Delete a Flashcard</h2>
-        <p>Select a flashcard to delete:</p>
-        <ul id="flashcardList"></ul>
-        <button onclick="backToMenu()">Back to Menu</button>
-    </div>
-
-    <script src="app.js"></script>
 </body>
+<script src="app.js"></script>
 </html>

@@ -1,124 +1,29 @@
-/* General Styles */
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f0f0f0;
-    margin: 0;
-    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f8ff;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    box-sizing: border-box;
 }
 
 .container {
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 30px;
-    width: 100%;
-    max-width: 600px;
+    width: 400px;
+    background: white;
+    padding: 20px;
     text-align: center;
-    display: none;
-}
-
-h1, h2 {
-    color: #333;
-    margin-bottom: 20px;
-}
-
-p {
-    color: #666;
-    font-size: 1.1em;
-    margin-bottom: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 button {
-    background-color: #4CAF50;
+    margin: 10px;
+    padding: 10px 20px;
+    background-color: #007bff;
     color: white;
     border: none;
-    padding: 10px 20px;
-    margin: 10px;
-    font-size: 16px;
-    border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 button:hover {
-    background-color: #45a049;
-    transform: scale(1.05);
-}
-
-button:focus {
-    outline: none;
-}
-
-button:active {
-    transform: scale(1);
-}
-
-input[type="text"] {
-    padding: 10px;
-    width: 80%;
-    font-size: 16px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
-}
-
-input[type="text"]:focus {
-    border-color: #4CAF50;
-    outline: none;
-}
-
-/* Flashcard List Styling */
-ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-li {
-    background-color: #f8f8f8;
-    margin: 10px 0;
-    padding: 15px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-li:hover {
-    background-color: #f1f1f1;
-}
-
-li p {
-    margin: 5px 0;
-    color: #555;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .container {
-        width: 90%;
-        padding: 20px;
-    }
-
-    input[type="text"] {
-        width: 100%;
-    }
-
-    button {
-        width: 100%;
-    }
-}
-
-/* Back to Top Button */
-button.back-to-menu {
-    background-color: #FF6347;
-    margin-top: 20px;
-}
-
-button.back-to-menu:hover {
-    background-color: #e5533f;
+    background-color: #0056b3;
 }

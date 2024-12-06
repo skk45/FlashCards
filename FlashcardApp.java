@@ -22,97 +22,81 @@ public class FlashcardApp {
         saveFlashcards();
     }
 
-    public void deleteFlashcard(){
-        if(flashcards.isEmpty()) {
-            System.out.println("No flashcards to delete. ");
+    public void deleteFlashcard() {
+        if (flashcards.isEmpty()) {
+            System.out.println("No flashcards to delete.");
             return;
         }
 
         System.out.println("Here are your flashcards: ");
-        for(int i = 0; i < flashcards.size(); i++)
-        {
+        for (int i = 0; i < flashcards.size(); i++) {
             System.out.println((i + 1) + ". Question: " + flashcards.get(i).getQuestion());
         }
 
-        System.out.println("Enter the number of flashcard to delete (or 0 to go back): ");
-        int choice = input.nextInt(); //consume new line 
-
-        if(choice == 0)
-        {
-            System.out.println("Returning to the main menu. ");
+        System.out.print("Enter the number of the flashcard to delete (or 0 to cancel): ");
+        int choice;
+        try {
+            choice = Integer.parseInt(input.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input. Returning to the menu.");
             return;
         }
 
-        if(choice > 0 && choice <= flashcards.size())
-        {
+        if (choice == 0) {
+            System.out.println("Returning to the main menu.");
+            return;
+        }
+
+        if (choice > 0 && choice <= flashcards.size()) {
             flashcards.remove(choice - 1);
             System.out.println("Flashcard deleted!\n");
-            saveFlashcards(); // Save updated flashcards
-        }
-        else 
-        {
-            System.out.println("invalid choice. Returning to the main menu.");
+            saveFlashcards();
+        } else {
+            System.out.println("Invalid choice. Returning to the menu.");
         }
     }
 
-    public void saveFlashcards(){
-        try(ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("flashcards.ser"))) {
-            out.writeObject(flashcards);
-            System.out.println("Flashcards saved successfully!");
+    public void testFlashcards() {
+        if (flashcards.isEmpty()) {
+            System.out.println("No flashcards available to test.");
+            return;
+        }
 
-        } catch (IOException e)
-        {
+        System.out.println("Testing your knowledge...");
+        for (Flashcard flashcard : flashcards) {
+            System.out.println("Question: " + flashcard.getQuestion());
+            System.out.print("Your Answer: ");
+            String userAnswer = input.nextLine().trim();
+
+            if (userAnswer.equalsIgnoreCase(flashcard.getAnswer().trim())) {
+                System.out.println("Correct!");
+            } else {
+                System.out.println("Incorrect! The correct answer is: " + flashcard.getAnswer());
+            }
+        }
+    }
+
+    public void saveFlashcards() {
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("flashcards.ser"))) {
+            out.writeObject(flashcards);
+            System.out.println("Flashcards saved successfully.");
+        } catch (IOException e) {
             System.out.println("Error saving flashcards: " + e.getMessage());
         }
     }
 
-    @SuppressWarnings("unchecked") // Suppress unchecked cast warning
-
-
-    public void loadFlashcards(){
-         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("flashcards.ser"))) {
+    @SuppressWarnings("unchecked")
+    public void loadFlashcards() {
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("flashcards.ser"))) {
             flashcards = (ArrayList<Flashcard>) in.readObject();
-            System.out.println("Flashcards loaded successfully!");
+            System.out.println("Flashcards loaded successfully.");
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("No saved flashcards found.");
-        }
-
-    }
-
-
-    public void testFlashcards(){
-        if(flashcards.isEmpty()) {
-            System.out.println("No flashcards available to test. ");
-            
-        }
-    
-        System.out.println("Testing your knowledge...");
-        for(Flashcard flashcard: flashcards) {
-            System.out.println("Question: " + flashcard.getQuestion());
-            System.out.print("Your Answer: ");
-            String userAnswer = input.nextLine() // Reads the user input as a string
-                                      .trim() // Removes leading and trailing spaces 
-                                      .replaceAll("\\s+", " ") ; // Replaces multiple spaces with a single space 
-            
-            String correctAnswer = flashcard.getAnswer()
-                                    .trim()
-                                    .replaceAll("\\s+", " ");
-
-            if (userAnswer.equalsIgnoreCase(correctAnswer))
-            {
-                System.out.println("Correct!");
-
-            }
-            else 
-            {
-                System.out.println("Incorrect! The correct answer is: " + flashcard.getAnswer());
-
-            }
         }
     }
 
     public void displayMenu() {
-        System.out.println("Flashcard App");
+        System.out.println("\nFlashcard App");
         System.out.println("1. Create a flashcard");
         System.out.println("2. Test your knowledge");
         System.out.println("3. Delete a flashcard");
@@ -121,30 +105,30 @@ public class FlashcardApp {
     }
 
     public static void main(String[] args) {
-        FlashcardApp card = new FlashcardApp();
+        FlashcardApp app = new FlashcardApp();
         boolean running = true;
 
-        while(running){
-            card.displayMenu();
-            String choiceInput = card.input.nextLine(); // Read input as a string
-            int choice; // Default invalid choice
+        while (running) {
+            app.displayMenu();
+            String choiceInput = app.input.nextLine();
+            int choice;
 
             try {
-            choice = Integer.parseInt(choiceInput); // Try to convert input to an integer
+                choice = Integer.parseInt(choiceInput);
             } catch (NumberFormatException e) {
-            System.out.println("Invalid choice. Please enter a number between 1 and 3.");
-            continue; // Skip to the next iteration
+                System.out.println("Invalid choice. Please enter a number between 1 and 4.");
+                continue;
             }
 
-            switch (choice){
+            switch (choice) {
                 case 1:
-                    card.createFlashcard();
+                    app.createFlashcard();
                     break;
                 case 2:
-                    card.testFlashcards();
+                    app.testFlashcards();
                     break;
                 case 3:
-                    card.deleteFlashcard();
+                    app.deleteFlashcard();
                     break;
                 case 4:
                     running = false;
@@ -153,6 +137,6 @@ public class FlashcardApp {
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
-        } 
+        }
     }
 }
