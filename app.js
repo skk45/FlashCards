@@ -8,6 +8,7 @@ function showCreatePage() {
 }
 
 // Show the "Test Knowledge" page
+// Show the "Test Knowledge" page
 function showTestPage() {
     if (flashcards.length === 0) {
         alert("No flashcards available. Please create some first.");
@@ -36,6 +37,32 @@ function showTestPage() {
     document.getElementById("testQuestions").innerHTML = testQuestionsHTML;
 }
 
+// Submit the answers and show the correct answers
+function submitTest() {
+    let resultHTML = '<h2>Results</h2>';
+    
+    flashcards.forEach((flashcard, index) => {
+        const userAnswer = document.getElementById(`answer${index}`).value.trim();
+        const correctAnswer = flashcard.answer;
+
+        // Display the question number, user's answer, and the correct answer
+        resultHTML += `
+            <div>
+                <p><strong>Question ${index + 1}:</strong> ${flashcard.question}</p>
+                <p><strong>Your Answer:</strong> ${userAnswer}</p>
+                <p><strong>Correct Answer:</strong> ${correctAnswer}</p>
+            </div>
+        `;
+    });
+
+    resultHTML += `
+        <button type="button" onclick="backToMenu()">Back to Menu</button>
+    `;
+    
+    // Clear previous content and add results
+    const testQuestionsContainer = document.getElementById("testQuestions");
+    testQuestionsContainer.innerHTML = resultHTML;
+}
 
 
 // Show the "Delete Flashcard" page
@@ -103,31 +130,7 @@ function testAnswers() {
     alert(`You got ${correctCount} out of ${flashcards.length} correct!`);
     backToMenu();
 }
-function submitTest() {
-    let resultHTML = '<h2>Results</h2>';
-    
-    flashcards.forEach((flashcard, index) => {
-        const userAnswer = document.getElementById(`answer${index}`).value.trim();
-        const correctAnswer = flashcard.answer;
 
-        // Display the question number, user's answer, and the correct answer
-        resultHTML += `
-            <div>
-                <p><strong>Question ${index + 1}:</strong> ${flashcard.question}</p>
-                <p><strong>Your Answer:</strong> ${userAnswer}</p>
-                <p><strong>Correct Answer:</strong> ${correctAnswer}</p>
-            </div>
-        `;
-    });
-
-    resultHTML += `
-        <button type="button" onclick="backToMenu()">Back to Menu</button>
-    `;
-    
-    // Clear previous content and add results
-    const testQuestionsContainer = document.getElementById("testQuestions");
-    testQuestionsContainer.innerHTML = resultHTML;
-}
 // Exit the app
 function exitApp() {
     window.close();  // Close the browser window/tab (may not work in all browsers)
