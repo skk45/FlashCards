@@ -17,16 +17,22 @@ function showTestPage() {
 
     document.getElementById("introPage").style.display = "none";
     document.getElementById("testPage").style.display = "block";
+    
+    // Prepare the questions for display
     let testQuestionsHTML = '';
     flashcards.forEach((flashcard, index) => {
         testQuestionsHTML += `
             <div>
                 <p><strong>Question:</strong> ${flashcard.question}</p>
                 <input type="text" id="answer${index}" placeholder="Your answer">
-                <p><strong>Correct Answer:</strong> <span id="correctAnswer${index}" style="display: none;">${flashcard.answer}</span></p>
             </div>
         `;
     });
+    
+    testQuestionsHTML += `
+        <button type="button" onclick="submitTest()">Submit Answers</button>
+    `;
+    
     document.getElementById("testQuestions").innerHTML = testQuestionsHTML;
 }
 
@@ -95,7 +101,33 @@ function testAnswers() {
     alert(`You got ${correctCount} out of ${flashcards.length} correct!`);
     backToMenu();
 }
+function submitTest() {
+    let correctCount = 0;
+    let resultHTML = '<h2>Results</h2>';
+    
+    flashcards.forEach((flashcard, index) => {
+        const userAnswer = document.getElementById(`answer${index}`).value.trim();
+        const correctAnswer = flashcard.answer;
 
+        // Check if the user's answer is correct
+        if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
+            correctCount++;
+            resultHTML += `
+                <p><strong>Question:</strong> ${flashcard.question}</p>
+                <p><strong>Your Answer:</strong> ${userAnswer} <span style="color: green;">(Correct)</span></p>
+            `;
+        } else {
+            resultHTML += `
+                <p><strong>Question:</strong> ${flashcard.question}</p>
+                <p><strong>Your Answer:</strong> ${userAnswer} <span style="color: red;">(Incorrect)</span></p>
+                <p><strong>Correct Answer:</strong> ${correctAnswer}</p>
+            `;
+        }
+    });
+
+    resultHTML += `<p>You got ${correctCount} out of ${flashcards.length} correct!</p>`;
+    document.getElementById("testQuestions").innerHTML = resultHTML;
+}
 // Exit the app
 function exitApp() {
     window.close();  // Close the browser window/tab (may not work in all browsers)
